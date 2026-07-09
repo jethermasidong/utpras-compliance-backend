@@ -1,11 +1,16 @@
+import pg from 'pg';
 import dotenv from "dotenv";
-import { createClient } from "@supabase/supabase-js";
+
 
 dotenv.config();
 
-const supabase = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_KEY
-);
+const { Pool } = pg;
 
-export default supabase;
+const db = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    sll: {
+        rejectUnauthorized: false,
+    },
+});
+
+export default db;
