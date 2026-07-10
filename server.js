@@ -3,6 +3,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import db from "./config/db.js";
 
+import userRoutes from './routes/usersRoutes.js';
 
 const app = express();
 app.use(cors());
@@ -16,6 +17,10 @@ db.query("SELECT NOW()")
         console.log(result.rows[0]);
     })
     .catch(err => console.log(err));
+
+
+app.use('/api', userRoutes);
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
