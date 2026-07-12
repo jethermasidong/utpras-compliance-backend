@@ -28,6 +28,12 @@ const User = {
         return result.rows[0];
     },
 
+    readAllUsers: async () => {
+        const query = `SELECT * FROM users`;
+        const result = await db.query(query);
+        return result.rows;
+    },
+
     updateUsers: async (data) => {
         const query = `
         UPDATE users SET

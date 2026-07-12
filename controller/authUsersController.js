@@ -77,10 +77,22 @@ export const login = async (req, res) => {
             },
         });
     } catch (error) {
-        console.error('Error', err);
+        console.error('Error', error);
         return res.status(500).json({ message: 'Server error' });
     }
 };
+
+
+export const readAllUsers = async (req, res) => {
+    try {
+        const users = await User.readAllUsers();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+};
+
+
 
 export const deleteUser = async (req, res) => {
     try {
@@ -93,4 +105,4 @@ export const deleteUser = async (req, res) => {
     }
 };
 
-export default { signUp, login, deleteUser };
+export default { signUp, login, readAllUsers, deleteUser };
