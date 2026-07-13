@@ -29,7 +29,7 @@ const User = {
     },
 
     readAllUsers: async () => {
-        const query = `SELECT * FROM users`;
+        const query = `SELECT * FROM users WHERE id <> 1`;
         const result = await db.query(query);
         return result.rows;
     },

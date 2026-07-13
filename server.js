@@ -4,6 +4,8 @@ import bodyParser from "body-parser";
 import db from "./config/db.js";
 
 import userRoutes from './routes/usersRoutes.js';
+import programRoutes from './routes/programRoutes.js';
+
 
 const app = express();
 app.use(cors());
@@ -20,6 +22,7 @@ db.query("SELECT NOW()")
 
 
 app.use('/api', userRoutes);
+app.use('/api', programRoutes);
 
 
 const PORT = process.env.PORT || 3000;
