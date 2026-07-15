@@ -4,7 +4,7 @@ import { viewAllPrograms, editProgram, addProgram } from '../controller/programC
 import auth from '../middleware/authMiddleware.js';
 
 
-router.get('/programs', auth,  viewAllPrograms);
+router.get('/programs', auth, viewAllPrograms);
 router.post('/programs-create', auth, addProgram);
 router.put('/programs-update', auth, editProgram);
 

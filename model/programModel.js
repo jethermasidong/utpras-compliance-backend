@@ -25,7 +25,7 @@ const Program = {
         return result.rows[0];
     },
 
-    readAllPrograms: async (id) => {
+    readAllPrograms: async () => {
         const query = `SELECT * FROM program`;
         const result = await db.query(query);
         return result.rows;

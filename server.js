@@ -5,6 +5,7 @@ import db from "./config/db.js";
 
 import userRoutes from './routes/usersRoutes.js';
 import programRoutes from './routes/programRoutes.js';
+import requirementRoutes from './routes/requirementRoutes.js';
 
 
 const app = express();
@@ -23,6 +24,7 @@ db.query("SELECT NOW()")
 
 app.use('/api', userRoutes);
 app.use('/api', programRoutes);
+app.use('/api', requirementRoutes);
 
 
 const PORT = process.env.PORT || 3000;

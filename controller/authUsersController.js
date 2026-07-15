@@ -27,7 +27,7 @@ export const signUp = async (req, res) => {
             password: hashedPassword
         };
         
-        const result = await User.createUsers(data)
+        const result = await User.createUsers(data);
 
         res.status(201).json({
             message: "User created successfully"

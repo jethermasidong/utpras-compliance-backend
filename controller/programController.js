@@ -22,7 +22,9 @@ export const addProgram = async (req, res) => {
         const result = await Program.createProgram(data);
 
         res.status(201).json({message: "Program created successfully"});
+        
     } catch (error) {
+        console.error("SERVER ERROR:", error);
         return res.status(500).json({
             message: "Internal Server Error"
         });
