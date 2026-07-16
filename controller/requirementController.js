@@ -10,11 +10,11 @@ export const addRequirements = async (req, res) => {
             description
         } = req.body;
 
-        if (!title || !display_order) {
+        if (!program_id || title || !display_order) {
             return res.status(400).json({
-                message: "All data are required"
+                message: "Program ID, Title, and Display Order are Required"
             });
-        }
+        };
 
         const final_description = description || '';
 
@@ -56,7 +56,7 @@ export const editRequirements = async (req, res) => {
 
         const result = await Requirement.updateRequirements(data);
 
-        req.status(200).json({message: "Requirement updated successfully"});
+        res.status(200).json({message: "Requirement updated successfully"});
     } catch (error) {
         console.error("SERVER ERROR:", error);
         return res.status(500).json({
@@ -84,6 +84,6 @@ export const viewRequirements = async (req, res) => {
         console.error("SERVER ERROR:", error);
         res.status(500).json({ message: "Internal Server Error"});
     }
-}
+};
 
 export default {addRequirements, editRequirements, viewAllRequirements, viewRequirements};

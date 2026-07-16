@@ -6,7 +6,7 @@ import db from "./config/db.js";
 import userRoutes from './routes/usersRoutes.js';
 import programRoutes from './routes/programRoutes.js';
 import requirementRoutes from './routes/requirementRoutes.js';
-
+import applicationRoutes from './routes/applicationRoutes.js';
 
 const app = express();
 app.use(cors());
@@ -25,6 +25,7 @@ db.query("SELECT NOW()")
 app.use('/api', userRoutes);
 app.use('/api', programRoutes);
 app.use('/api', requirementRoutes);
+app.use('/api', applicationRoutes);z
 
 
 const PORT = process.env.PORT || 3000;
