@@ -25,7 +25,7 @@ db.query("SELECT NOW()")
 app.use('/api', userRoutes);
 app.use('/api', programRoutes);
 app.use('/api', requirementRoutes);
-app.use('/api', applicationRoutes);z
+app.use('/api', applicationRoutes);
 
 
 const PORT = process.env.PORT || 3000;

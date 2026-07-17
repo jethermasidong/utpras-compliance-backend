@@ -39,7 +39,7 @@ const Requirement = {
         const query = `
         UPDATE requirements SET
             title = $1,
-            display_order = $2
+            display_order = $2,
             description = $3
         WHERE id = $4
         RETURNING *;

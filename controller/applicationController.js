@@ -55,7 +55,7 @@ export const editApplications = async (req, res) => {
     }
 };
 
-export const viewApplicationsByUser = async (res, res) => {
+export const viewApplicationsByUser = async (req, res) => {
     try {
         const { user_id } = req.params;
         const application = await Application.readApplications(user_id);

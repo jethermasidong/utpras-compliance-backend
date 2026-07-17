@@ -49,6 +49,7 @@ export const editRequirements = async (req, res) => {
         } = req.body;
 
         const data = {
+            id,
             title,
             display_order,
             description

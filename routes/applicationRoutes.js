@@ -1,11 +1,11 @@
 import express from 'express';
 const router = express.Router();
-import { viewAllApplication, addApplications, editApplications, viewApplicationsByUser} from '../controller/applicationControler.js';
+import { viewAllApplications, addApplications, editApplications, viewApplicationsByUser} from '../controller/applicationController.js';
 import auth from '../middleware/authMiddleware.js';
 
 
-router.get('/applications', auth, viewAllApplication);
-router.get('applications/:user_id', viewApplicationsByUser);
+router.get('/applications', auth, viewAllApplications);
+router.get('applications/:user_id', auth, viewApplicationsByUser);
 router.post('/applications-create', auth, addApplications);
 router.put('/applications-update', auth, editApplications);
 
