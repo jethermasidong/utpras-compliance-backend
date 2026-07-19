@@ -7,6 +7,7 @@ import userRoutes from './routes/usersRoutes.js';
 import programRoutes from './routes/programRoutes.js';
 import requirementRoutes from './routes/requirementRoutes.js';
 import applicationRoutes from './routes/applicationRoutes.js';
+import ibtRoutes from './routes/ibtRoutes.js';
 
 const app = express();
 app.use(cors());
@@ -26,6 +27,7 @@ app.use('/api', userRoutes);
 app.use('/api', programRoutes);
 app.use('/api', requirementRoutes);
 app.use('/api', applicationRoutes);
+app.use('/api', ibtRoutes);
 
 
 const PORT = process.env.PORT || 3000;

@@ -5,9 +5,9 @@ import auth from '../middleware/authMiddleware.js';
 
 
 router.get('/applications', auth, viewAllApplications);
-router.get('applications/:user_id', auth, viewApplicationsByUser);
+router.get('/application', auth, viewApplicationsByUser);
 router.post('/applications-create', auth, addApplications);
-router.put('/applications-update', auth, editApplications);
+router.put('/applications-update/:id', auth, editApplications);
 
 
 export default router;

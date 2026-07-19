@@ -7,7 +7,7 @@ import auth from '../middleware/authMiddleware.js';
 router.get('/requirements', auth, viewAllRequirements);
 router.get('/requirement/:program_id', viewRequirements);
 router.post('/requirements-create', auth, addRequirements);
-router.put('/requirements-update', auth, editRequirements);
+router.put('/requirements-update/:id', auth, editRequirements);
 
 
 export default router;

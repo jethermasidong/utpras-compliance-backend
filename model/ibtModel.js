@@ -33,13 +33,15 @@ const IBT = {
         return result.rows;
     },
 
-    readAllProfile: async () => {
-        const query = `SELECT * FROM ibt_profile`;
-        const result = await db.query(query);
+    readProfileByUserID: async (user_id) => {
+        const query = `SELECT * FROM ibt_profile WHERE user_id = $1`;
+        const result = await db.query(query, [
+            user_id
+        ]);
         return result.rows;
     },
 
-    updateProfile: async (data) => {
+    updateProfile: async (application_id, data) => {
         const query = `
         UPDATE ibt_profile SET
             applicant_name = $1,
@@ -50,7 +52,7 @@ const IBT = {
             no_of_trainees = $6,
             no_of_batches = $7,
             training_capacity = $8
-        WHERE id = $9
+        WHERE application_id = $9
         RETURNING *;
         `;
 
@@ -62,7 +64,8 @@ const IBT = {
             data.duration,
             data.no_of_trainees,
             data.no_of_batches,
-            data.training_capacity
+            data.training_capacity,
+            application_id
         ]);
 
         return result.rows[0];

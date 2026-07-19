@@ -4,12 +4,12 @@ import Application from '../model/applicationModel.js';
 export const addApplications = async (req, res) => {
     try {
 
-        const{ user_id } = req.params;
+        const user_id = req.user.id;
         const {
             program_id,
         } = req.body;
 
-        if (!user_id || program_id) {
+        if (!user_id || !program_id) {
             return res.status(400).json({
                 message: "User ID and Program ID are Required"
             });
@@ -22,7 +22,7 @@ export const addApplications = async (req, res) => {
 
         const result = await Application.createApplication(data);
 
-        res.status(201).json({message: "Application created successfully"});
+        res.status(201).json(result);
 
     } catch (error) {
         console.error("SERVER ERROR:", error);
@@ -57,7 +57,7 @@ export const editApplications = async (req, res) => {
 
 export const viewApplicationsByUser = async (req, res) => {
     try {
-        const { user_id } = req.params;
+        const user_id = req.user.id;
         const application = await Application.readApplications(user_id);
         res.status(200).json(application);
 

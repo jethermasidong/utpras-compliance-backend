@@ -46,7 +46,7 @@ export const addProfile = async (req, res) => {
 export const editIBTProfile = async (req, res) => {
     try {
 
-        const { id } = req.params;
+        const { application_id } = req.params;
 
         const {
             applicant_name,
@@ -60,7 +60,6 @@ export const editIBTProfile = async (req, res) => {
         } = req.body;
 
         const data = {
-            id,
             applicant_name,
             address,
             telephone,
@@ -71,7 +70,7 @@ export const editIBTProfile = async (req, res) => {
             training_capacity
         };
 
-        const result = await IBT.editIBTProfile(data);
+        const result = await IBT.updateProfile(application_id, data);
         res.status(200).json({message: "Profile updated successfully!"});
     } catch (error) {
         console.error("SERVER ERROR:", error);
@@ -82,7 +81,7 @@ export const editIBTProfile = async (req, res) => {
 };
 
 
-export const viewProfileByAppliaacationID = async (req, res) => {
+export const viewProfileByApplicationID = async (req, res) => {
     try {
         const { application_id } = req.params;
         const ibt_profile = await IBT.readProfileByApplicationID(application_id);
@@ -94,9 +93,10 @@ export const viewProfileByAppliaacationID = async (req, res) => {
 };
 
 
-export const viewAllProfile = async (req, res) => {
+export const viewProfileByUserID = async (req, res) => {
     try {
-        const ibt_profile = await IBT.readAllProfile();
+        const user_id = req.user.id;
+        const ibt_profile = await IBT.readProfileByUserID(user_id);
         res.status(200).json(ibt_profile);
     } catch (error) {
         console.error("SERVER ERROR:", error);
@@ -105,4 +105,4 @@ export const viewAllProfile = async (req, res) => {
 };
 
 
-export default { addProfile, editIBTProfile, viewProfileByApplicationID, viewAllProfile };
+export default { addProfile, editIBTProfile, viewProfileByApplicationID, viewProfileByUserID };
