@@ -1,0 +1,43 @@
+import db from "../config/db.js";
+
+
+const Documents = {
+
+
+    readDocumentByApplication: async (application_id, program_id) => {
+
+        const query = `
+            SELECT
+                r.id as requirement_id,
+                r.title,
+                r.description,
+                d.file_url,
+                d.version,
+                d.uploaded_at,
+                dr.status,
+                dr.remarks,
+                dr.reviewed_at
+            FROM requirements r
+            LEFT JOIN documents d ON r.id = d.requirement_id
+                AND d.application_id = $1
+                AND d.is_current = true
+            LEFT JOIN document_reviews dr ON d.id = dr.document_id
+                AND dr.id = (
+                    SELECT MAX(id)
+                    FROM document_reviews
+                    WHERE document_id = d.id
+                )
+            WHERE r.program_id = $2
+            ORDER BY r.display_order ASC
+            `;
+
+        const result = await db.query(query, [
+            application_id,
+            program_id
+        ]);
+        
+        return result.rows;
+    }
+}
+
+export default Documents;

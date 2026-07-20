@@ -49,6 +49,7 @@ const Requirement = {
             data.title,
             data.display_order,
             data.description,
+            data.id
         ]);
 
         return result.rows[0];

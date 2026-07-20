@@ -10,7 +10,7 @@ export const addRequirements = async (req, res) => {
             description
         } = req.body;
 
-        if (!program_id || title || !display_order) {
+        if (!program_id || !title || !display_order) {
             return res.status(400).json({
                 message: "Program ID, Title, and Display Order are Required"
             });
