@@ -48,13 +48,20 @@ const Application = {
     updateApplications: async (data) => {
         const query = `
         UPDATE applications SET
-            status = $1
-        WHERE id = $2
+            status = $1,
+            date_issued = $2,
+            ctpr_number = $3,
+            ctpr_link = $4
+        WHERE id = $5
         RETURNING *;
         `;
 
         const result = await db.query(query, [
             data.status,
+            data.date_issued,
+            data.ctpr_number,
+            data.ctpr_link,
+            data.id
         ]);
 
         return result.rows[0];

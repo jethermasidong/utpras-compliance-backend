@@ -38,10 +38,14 @@ export const editApplications = async (req, res) => {
         
         const { id } = req.params;
 
-        const { status } = req.body;
+        const { status, date_issued, ctpr_number, ctpr_link } = req.body;
 
         const data = {
-            status
+            id,
+            status,
+            date_issued,
+            ctpr_number,
+            ctpr_link
         };
 
         const result = await Application.updateApplications(data);
