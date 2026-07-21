@@ -4,7 +4,7 @@ import { getDocumentByApplicationID } from '../controller/documentController.js'
 import auth from '../middleware/authMiddleware.js';
 
 
-router.get('/documents/:application_id/:program_id', auth, getDocumentByApplicationID);
+router.get('/documents/:application_id/:program_id', auth, getDocumentByApplicationID); //
 
 
 export default router;

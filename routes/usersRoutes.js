@@ -5,9 +5,9 @@ import auth from '../middleware/authMiddleware.js';
 import { loginLimiter } from '../middleware/rateLimiter.js';
 
 
-router.get('/users', auth, readAllUsers);
-router.post('/signup', auth, signUp);
-router.post('/login', loginLimiter, login);
+router.get('/users', auth, readAllUsers); //
+router.post('/signup', auth, signUp); // 
+router.post('/login', loginLimiter, login); //
 router.delete('/delete/:id', auth, deleteUser)
 
 export default router;
