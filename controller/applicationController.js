@@ -77,4 +77,15 @@ export const viewAllApplications = async (req, res) => {
     }
 };
 
-export default { addApplications, editApplications, viewAllApplications, viewApplicationsByUser};
+export const deleteApplication = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const application = await Application.deleteApplication(id);
+        res.status(200).json({ message: "Application deleted successfully!"});
+    } catch (error) {
+        console.error("SERVER ERROR", error);
+        res.status(500).json({ message: "Internal Server Error"});
+    }
+}
+
+export default { addApplications, editApplications, viewAllApplications, viewApplicationsByUser, deleteApplication};

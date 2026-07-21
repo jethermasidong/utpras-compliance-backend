@@ -60,6 +60,14 @@ const Application = {
         return result.rows[0];
     },
 
+    deleteApplication: async (id) => {
+        const query = `DELETE FROM applications WHERE id = $1`;
+        const result = await db.query(query, [
+            id
+        ]);
+        return result.rows[0];
+    },
+
 };
 
 export default Application;
