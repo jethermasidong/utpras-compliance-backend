@@ -40,6 +40,37 @@ export const addDocument = async (req, res) => {
     }
 };
 
+export const editDocumentFileUpload = async (req, res) => {
+    try {
+        const {
+            application_id,
+            requirement_id
+        } = req.params;
+        
+        const file_url = req.file ? req.file.path : null;
+
+        if (!application_id || !requirement_id) {
+            return res.status(400).json({
+                message: "Application ID are Required"
+            });
+        }
+
+        const data = {
+            application_id,
+            requirement_id,
+            file_url
+        };
+
+        const result = await Documents.updateDocumentFileUpload(data)
+        return res.status(201).json({message: "Program created successfully!", file_url});
+    } catch (err) {
+        console.error("SERVER ERROR:", error);
+        return res.status(500).json({
+            message: "Internal Server Error"
+        });
+    };
+}
+
 
 
 
@@ -51,6 +82,7 @@ export const getDocumentByApplicationID = async (req, res) => {
             application_id,
             program_id
         } = req.params;
+
         if (!application_id || !program_id) {
             return res.status(400).json({
                 message: "Application ID and Program ID are Required"
@@ -66,4 +98,4 @@ export const getDocumentByApplicationID = async (req, res) => {
 };
 
 
-export default { getDocumentByApplicationID }
+export default { getDocumentByApplicationID, addDocument, editDocumentFileUpload }

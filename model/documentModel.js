@@ -3,25 +3,42 @@ import db from "../config/db.js";
 
 const Documents = {
 
-        createDocument: async (data) => {
-            const query = `
-            INSERT INTO documents
-            (application_id, requirement_id, file_url, version, po_compliance)
-            VALUES ($1, $2, $3, $4, $5)
-            RETURNING *;
-            `;
+    createDocument: async (data) => {
+        const query = `
+        INSERT INTO documents
+        (application_id, requirement_id, file_url, version, po_compliance)
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING *;
+        `;
 
-            const result = await db.query(query, [
-                data.application_id,
-                data.requirement_id,
-                data.file_url,
-                data.version,
-                data.po_compliance
-            ]);
+        const result = await db.query(query, [
+            data.application_id,
+            data.requirement_id,
+            data.file_url,
+            data.version,
+            data.po_compliance
+        ]);
 
-            return result.rows[0];
-        },
+        return result.rows[0];
+    },
 
+    updateDocumentFileUpload: async (data) => {
+        const query = `
+        UPDATE documents SET
+            file_url = $1,
+            version = version + 1,
+            uploaded_at = CURRENT_TIMESTAMP
+        WHERE application_id = $2 AND requirement_id = $3
+        RETURNING *;
+        `;
+
+        const result = await db.query(query, [
+            data.file_url,
+            data.application_id,
+            data.requirement_id
+        ]);
+       return result.rows[0];
+    },
 
     readDocumentByApplication: async (application_id, program_id) => {
 
