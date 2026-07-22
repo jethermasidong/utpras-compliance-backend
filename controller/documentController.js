@@ -9,14 +9,15 @@ export const addDocument = async (req, res) => {
         } = req.params;
 
         const {
-            file_url,
             version,
             po_compliance
-        } = req.body;
+        } = req.body || {};
+
+        const file_url = req.file ? req.file.path : null;
         
         if (!application_id || !requirement_id) {
             return res.status(400).json({
-                message: "All data are required!"
+                message: "Application and Requirement IDs are required!"
             });
         }
 
@@ -24,13 +25,13 @@ export const addDocument = async (req, res) => {
             application_id,
             requirement_id,
             file_url,
-            version,
-            po_compliance,
+            version: version || 1,
+            po_compliance: po_compliance || 'pending',
         };
 
         const result = await Documents.createDocument(data);
         
-        res.status(201).json({message: "Program created successfully!"});
+        res.status(201).json({message: "Program created successfully!", file_url});
     } catch (error) {
         console.error("SERVER ERROR:", error);
         return res.status(500).json({

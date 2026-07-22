@@ -15,8 +15,8 @@ const Documents = {
                 data.application_id,
                 data.requirement_id,
                 data.file_url,
-                version,
-                po_compliance
+                data.version,
+                data.po_compliance
             ]);
 
             return result.rows[0];
