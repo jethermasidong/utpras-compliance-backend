@@ -3,6 +3,25 @@ import db from "../config/db.js";
 
 const Documents = {
 
+        createDocument: async (data) => {
+            const query = `
+            INSERT INTO documents
+            (application_id, requirement_id, file_url, version, po_compliance)
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING *;
+            `;
+
+            const result = await db.query(query, [
+                data.application_id,
+                data.requirement_id,
+                data.file_url,
+                version,
+                po_compliance
+            ]);
+
+            return result.rows[0];
+        },
+
 
     readDocumentByApplication: async (application_id, program_id) => {
 
@@ -20,7 +39,6 @@ const Documents = {
             FROM requirements r
             LEFT JOIN documents d ON r.id = d.requirement_id
                 AND d.application_id = $1
-                AND d.is_current = true
             LEFT JOIN document_reviews dr ON d.id = dr.document_id
                 AND dr.id = (
                     SELECT MAX(id)
@@ -37,7 +55,8 @@ const Documents = {
         ]);
         
         return result.rows;
-    }
+    },
+
 }
 
 export default Documents;
