@@ -69,6 +69,39 @@ export const editDocumentFileUpload = async (req, res) => {
             message: "Internal Server Error"
         });
     };
+};
+
+export const editDocumentPOCompliance = async (req, res) => {
+    try {
+        const {
+            application_id,
+            requirement_id
+        } = req.params;
+
+        const {
+            po_compliance
+        } = req.body;
+
+        if (!application_id || !requirement_id) {
+            return res.status(400).json({
+                message: "Application ID are Required"
+            });  
+        }
+
+        const data = {
+            po_compliance,
+            application_id,
+            requirement_id
+        };
+
+        const result = await Documents.updateDocumentPOCompliance(data);
+        return res.status(201).json({message: "Program created successfully!"});
+    } catch (err) {
+        console.error("SERVER ERROR:", err);
+        return res.status(500).json({
+            message: "Internal Server Error"
+        });
+    };
 }
 
 

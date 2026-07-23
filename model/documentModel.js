@@ -40,6 +40,23 @@ const Documents = {
        return result.rows[0];
     },
 
+
+    updateDocumentPOCompliance: async (data) => {
+        const query = `
+        UPDATE documents SET 
+            po_compliance = $1
+        WHERE application_id = $2 AND requirement_id = $3
+        RETURNING *;
+        `;
+
+        const result = await db.query(query, [
+            data.po_compliance,
+            data.application_id,
+            data.requirement_id
+        ]);
+        return result.rows[0];
+    },
+
     readDocumentByApplication: async (application_id, program_id) => {
 
         const query = `
@@ -50,6 +67,7 @@ const Documents = {
                 d.file_url,
                 d.version,
                 d.uploaded_at,
+                d.po_compliance,
                 dr.status,
                 dr.remarks,
                 dr.reviewed_at
