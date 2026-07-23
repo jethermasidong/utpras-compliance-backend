@@ -22,7 +22,28 @@ const Requirement = {
     },
 
     readRequirements: async (program_id) => {
-        const query = `SELECT * FROM requirements WHERE program_id = $1`;
+        const query = `
+        SELECT 
+            id,
+            title,
+            description,
+            display_order
+        FROM requirements
+        WHERE program_id = $1
+
+        UNION ALL
+
+        SELECT 
+            id,
+            title,
+            description,
+            display_order
+        FROM additional_requirements
+        WHERE program_id = $1
+
+        ORDER BY display_order ASC;
+        `;
+
         const result = await db.query(query, [
             program_id
         ]);
